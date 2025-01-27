@@ -68,7 +68,7 @@ const revealCells = (grid, row, col) => {
 
 const Grid16x16 = () => {
   const gridSize = 16;
-  const mineCount = 40;
+  const mineCount = 5; // Mine ridotte a 5
   const [grid, setGrid] = useState(generateGrid(gridSize, mineCount));
   const [gameOver, setGameOver] = useState(false);
   const [gameWon, setGameWon] = useState(false);
@@ -85,6 +85,13 @@ const Grid16x16 = () => {
     if (gameOver || gameWon || grid[row][col].isRevealed || grid[row][col].isFlagged) return;
 
     if (grid[row][col].isMine) {
+      // Riveliamo tutte le mine quando l'utente perde
+      const newGrid = grid.map(row => 
+        row.map(cell => 
+          cell.isMine ? { ...cell, isRevealed: true } : cell
+        )
+      );
+      setGrid(newGrid);
       setGameOver(true);
       alert("Game Over! You clicked on a mine.");
     } else {
@@ -125,9 +132,9 @@ const Grid16x16 = () => {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: `repeat(${gridSize}, 30px)`, // 16 colonne di 30px ciascuna
-          gridTemplateRows: `repeat(${gridSize}, 30px)`, // 16 righe di 30px ciascuna
-          gap: "1px", // Spazio tra le celle
+          gridTemplateColumns: `repeat(${gridSize}, 30px)`,
+          gridTemplateRows: `repeat(${gridSize}, 30px)`,
+          gap: "1px",
         }}
       >
         {grid.map((row, rowIndex) =>
