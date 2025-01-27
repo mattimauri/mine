@@ -18,7 +18,7 @@ const Cell = memo(({ cell, onClick, onRightClick }) => {
         color: "black",
       }}
     >
-      {cell.isRevealed && cell.isMine && <span>💣</span>} {/* Icona della bomba */}
+      {cell.isRevealed && cell.isMine && <span>💣</span>} 
       {cell.isRevealed && !cell.isMine && cell.adjacentMines > 0 && (
         <span style={{ color: "black", fontWeight: "bold" }}>
           {cell.adjacentMines}
